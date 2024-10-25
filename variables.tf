@@ -38,3 +38,15 @@ variable "aws_token" {
   description = "AWS Session Token"
   type        = string
 }
+
+# Azure
+variable "azure_region" {
+  description = "Azure Region"
+  type        = string
+  default     = "West US"
+}
+
+variable "azure_subscription_id" {
+  description = "Azure Subscription ID"
+  type        = string
+}
