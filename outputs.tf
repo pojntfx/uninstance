@@ -45,3 +45,31 @@ output "alma_azure_pvm_node_1_ipv6_address" {
   description = "alma-azure-pvm-node-1 IPv6 Address"
   value       = azurerm_public_ip.alma_azure_pvm_node_1_ip_ipv6.ip_address
 }
+
+# Equinix
+output "alma_equinix_pvm_node_1_user" {
+  description = "alma-equinix-pvm-node-1 User"
+  value       = "root"
+}
+
+output "alma_equinix_pvm_node_1_ipv4_address" {
+  description = "alma-equinix-pvm-node-1 IPv4 Address"
+  value = try(
+    [
+      for addr in equinix_metal_device.alma_equinix_pvm_node_1.network : addr.address
+      if addr.family == 4 && addr.public == true
+    ][0],
+    null
+  )
+}
+
+output "alma_equinix_pvm_node_1_ipv6_address" {
+  description = "alma-equinix-pvm-node-1 IPv6 Address"
+  value = try(
+    [
+      for addr in equinix_metal_device.alma_equinix_pvm_node_1.network : addr.address
+      if addr.family == 6 && addr.public == true
+    ][0],
+    null
+  )
+}

@@ -50,3 +50,20 @@ variable "azure_subscription_id" {
   description = "Azure Subscription ID"
   type        = string
 }
+
+# Equinix
+variable "equinix_project_id" {
+  description = "Equinix Project ID"
+  type        = string
+}
+
+variable "equinix_auth_token" {
+  description = "Equinix Auth Token"
+  type        = string
+}
+
+variable "equinix_metro" {
+  description = "Equinix Metro"
+  type        = string
+  default     = "se"
+}

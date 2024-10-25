@@ -14,6 +14,11 @@ terraform {
       source  = "opentofu/azurerm"
       version = "~> 4.0"
     }
+
+    equinix = {
+      source  = "equinix/equinix"
+      version = "~> 1.0"
+    }
   }
 }
 
@@ -31,4 +36,8 @@ provider "aws" {
 provider "azurerm" {
   subscription_id = var.azure_subscription_id
   features {}
+}
+
+provider "equinix" {
+  auth_token = var.equinix_auth_token
 }
