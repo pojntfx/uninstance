@@ -87,6 +87,10 @@ resource "aws_instance" "alma_aws_pvm_node_1" {
   associate_public_ip_address = true
   ipv6_address_count          = 1
 
+  root_block_device {
+    volume_size = 50
+  }
+
   user_data              = file("cloud-init-alma-aws.yaml")
   key_name               = aws_key_pair.uninstance.key_name
   vpc_security_group_ids = [aws_security_group.uninstance.id]

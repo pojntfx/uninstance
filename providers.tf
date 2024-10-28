@@ -19,6 +19,11 @@ terraform {
       source  = "equinix/equinix"
       version = "~> 1.0"
     }
+
+    google = {
+      source  = "opentofu/google"
+      version = "~> 6.4"
+    }
   }
 }
 
@@ -40,4 +45,10 @@ provider "azurerm" {
 
 provider "equinix" {
   auth_token = var.equinix_auth_token
+}
+
+provider "google" {
+  project = var.gcp_project_id
+  region  = var.gcp_region
+  zone    = var.gcp_zone
 }

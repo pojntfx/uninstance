@@ -73,3 +73,19 @@ output "alma_equinix_pvm_node_1_ipv6_address" {
     null
   )
 }
+
+# GCP
+output "alma_gcp_pvm_node_1_user" {
+  description = "alma-gcp-pvm-node-1 User"
+  value       = "pojntfx"
+}
+
+output "alma_gcp_pvm_node_1_ipv4_address" {
+  description = "alma-gcp-pvm-node-1 IPv4 Address"
+  value       = google_compute_address.alma_gcp_pvm_node_1_ip_ipv4.address
+}
+
+output "alma_gcp_pvm_node_1_ipv6_address" {
+  description = "alma-gcp-pvm-node-1 IPv6 Address"
+  value       = google_compute_instance.alma_gcp_pvm_node_1.network_interface[0].ipv6_access_config[0].external_ipv6
+}
