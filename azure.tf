@@ -55,6 +55,8 @@ resource "azurerm_network_security_group" "uninstance" {
     destination_address_prefixes = ["::/0"]
     destination_port_ranges      = ["0-65535"]
   }
+
+  depends_on = [azurerm_resource_group.uninstance]
 }
 
 resource "azurerm_virtual_network" "uninstance" {
@@ -62,6 +64,8 @@ resource "azurerm_virtual_network" "uninstance" {
   address_space       = ["10.0.0.0/16", "fd00::/8"]
   location            = azurerm_resource_group.uninstance.location
   resource_group_name = azurerm_resource_group.uninstance.name
+
+  depends_on = [azurerm_resource_group.uninstance]
 }
 
 resource "azurerm_subnet" "uninstance" {
@@ -69,11 +73,22 @@ resource "azurerm_subnet" "uninstance" {
   resource_group_name  = azurerm_resource_group.uninstance.name
   virtual_network_name = azurerm_virtual_network.uninstance.name
   address_prefixes     = ["10.0.1.0/24", "fd00::/64"]
+
+  depends_on = [
+    azurerm_resource_group.uninstance,
+    azurerm_virtual_network.uninstance,
+  ]
 }
 
 resource "azurerm_subnet_network_security_group_association" "uninstance" {
   subnet_id                 = azurerm_subnet.uninstance.id
   network_security_group_id = azurerm_network_security_group.uninstance.id
+
+  depends_on = [
+    azurerm_resource_group.uninstance,
+    azurerm_subnet.uninstance,
+    azurerm_network_security_group.uninstance
+  ]
 }
 
 resource "azurerm_public_ip" "alma_azure_pvm_node_1_ip_ipv4" {
@@ -83,6 +98,8 @@ resource "azurerm_public_ip" "alma_azure_pvm_node_1_ip_ipv4" {
   allocation_method   = "Static"
   sku                 = "Standard"
   ip_version          = "IPv4"
+
+  depends_on = [azurerm_resource_group.uninstance]
 }
 
 resource "azurerm_public_ip" "alma_azure_pvm_node_1_ip_ipv6" {
@@ -92,6 +109,8 @@ resource "azurerm_public_ip" "alma_azure_pvm_node_1_ip_ipv6" {
   allocation_method   = "Static"
   sku                 = "Standard"
   ip_version          = "IPv6"
+
+  depends_on = [azurerm_resource_group.uninstance]
 }
 
 resource "azurerm_network_interface" "alma_azure_pvm_nic" {
@@ -115,13 +134,15 @@ resource "azurerm_network_interface" "alma_azure_pvm_nic" {
     private_ip_address_version    = "IPv6"
     public_ip_address_id          = azurerm_public_ip.alma_azure_pvm_node_1_ip_ipv6.id
   }
+
+  depends_on = [azurerm_resource_group.uninstance]
 }
 
 resource "azurerm_linux_virtual_machine" "alma_azure_pvm_node_1" {
   name                  = "alma-azure-pvm-node-1"
   resource_group_name   = azurerm_resource_group.uninstance.name
   location              = azurerm_resource_group.uninstance.location
-  size                  = "Standard_B2s"
+  size                  = var.azure_vm_size
   admin_username        = "pojntfx"
   network_interface_ids = [azurerm_network_interface.alma_azure_pvm_nic.id]
 
@@ -146,4 +167,6 @@ resource "azurerm_linux_virtual_machine" "alma_azure_pvm_node_1" {
   disable_password_authentication = true
 
   custom_data = base64encode(file("cloud-init-alma-azure.yaml"))
+
+  depends_on = [azurerm_resource_group.uninstance]
 }
