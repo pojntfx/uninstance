@@ -20,7 +20,7 @@ variable "hetzner_location" {
 variable "hetzner_server_type" {
   description = "Hetzner Server Type"
   type        = string
-  default     = "cpx31" # AMD Rome
+  default     = "ccx23" # AMD Milan or Genoa
 }
 
 # AWS
@@ -48,14 +48,14 @@ variable "aws_token" {
 variable "aws_instance_type" {
   description = "AWS Instance Type"
   type        = string
-  default     = "c5a.xlarge" # AMD Rome
+  default     = "c6a.xlarge" # AMD Milan
 }
 
 # Azure
 variable "azure_region" {
   description = "Azure Region"
   type        = string
-  default     = "West US 2"
+  default     = "West US"
 }
 
 variable "azure_subscription_id" {
@@ -66,7 +66,7 @@ variable "azure_subscription_id" {
 variable "azure_vm_size" {
   description = "Azure VM Size"
   type        = string
-  default     = "Standard_D4as_v4" # AMD Rome
+  default     = "Standard_D4ads_v5" # AMD Milan
 }
 
 # Equinix
@@ -89,7 +89,7 @@ variable "equinix_metro" {
 variable "equinix_device_plan" {
   description = "Equinix Device Plan"
   type        = string
-  default     = "c3.medium.x86" # AMD Rome
+  default     = "c3.medium.x86" # AMD Rome; INCOMPATIBLE with CPU template, use c3.medium.opt-c1 if available instead
 }
 
 # GCP
@@ -113,5 +113,5 @@ variable "gcp_zone" {
 variable "gcp_machine_type" {
   description = "GCP Machine Type"
   type        = string
-  default     = "n2d-standard-2" # AMD Rome
+  default     = "t2d-standard-4" # AMD Genoa
 }
