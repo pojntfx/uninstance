@@ -95,7 +95,7 @@ resource "google_service_account" "uninstance" {
 
 resource "google_compute_instance" "alma_gcp_pvm_node_1" {
   name                      = "alma-gcp-pvm-node-1"
-  machine_type              = "n2-standard-2"
+  machine_type              = var.gcp_machine_type
   allow_stopping_for_update = true
 
   boot_disk {

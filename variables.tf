@@ -14,7 +14,13 @@ variable "hetzner_api_key" {
 variable "hetzner_location" {
   description = "Hetzner Location"
   type        = string
-  default     = "nbg1"
+  default     = "hil"
+}
+
+variable "hetzner_server_type" {
+  description = "Hetzner Server Type"
+  type        = string
+  default     = "cpx31" # AMD Rome
 }
 
 # AWS
@@ -39,16 +45,28 @@ variable "aws_token" {
   type        = string
 }
 
+variable "aws_instance_type" {
+  description = "AWS Instance Type"
+  type        = string
+  default     = "c5a.xlarge" # AMD Rome
+}
+
 # Azure
 variable "azure_region" {
   description = "Azure Region"
   type        = string
-  default     = "West US"
+  default     = "West US 2"
 }
 
 variable "azure_subscription_id" {
   description = "Azure Subscription ID"
   type        = string
+}
+
+variable "azure_vm_size" {
+  description = "Azure VM Size"
+  type        = string
+  default     = "Standard_D4as_v4" # AMD Rome
 }
 
 # Equinix
@@ -68,6 +86,12 @@ variable "equinix_metro" {
   default     = "se"
 }
 
+variable "equinix_device_plan" {
+  description = "Equinix Device Plan"
+  type        = string
+  default     = "c3.medium.x86" # AMD Rome
+}
+
 # GCP
 variable "gcp_project_id" {
   description = "GCP Project ID"
@@ -84,4 +108,10 @@ variable "gcp_zone" {
   description = "GCP Zone"
   type        = string
   default     = "us-west1-a"
+}
+
+variable "gcp_machine_type" {
+  description = "GCP Machine Type"
+  type        = string
+  default     = "n2d-standard-2" # AMD Rome
 }

@@ -30,7 +30,7 @@ resource "hcloud_firewall" "uninstance" {
 resource "hcloud_server" "alma_hetzner_pvm_node_1" {
   name        = "alma-hetzner-pvm-node-1"
   image       = "alma-9"
-  server_type = "cx32"
+  server_type = var.hetzner_server_type
   location    = var.hetzner_location
 
   user_data    = file("cloud-init-alma-hetzner.yaml")

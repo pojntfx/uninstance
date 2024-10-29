@@ -5,7 +5,7 @@ resource "equinix_metal_ssh_key" "uninstance" {
 
 resource "equinix_metal_device" "alma_equinix_pvm_node_1" {
   hostname         = "alma-equinix-pvm-node-1"
-  plan             = "m3.small.x86"
+  plan             = var.equinix_device_plan
   metro            = var.equinix_metro
   operating_system = "alma_9"
   billing_cycle    = "hourly"

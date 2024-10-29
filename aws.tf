@@ -82,7 +82,7 @@ data "aws_ami" "alma" {
 
 resource "aws_instance" "alma_aws_pvm_node_1" {
   ami                         = data.aws_ami.alma.id
-  instance_type               = "t3.medium"
+  instance_type               = var.aws_instance_type
   subnet_id                   = aws_subnet.uninstance.id
   associate_public_ip_address = true
   ipv6_address_count          = 1
