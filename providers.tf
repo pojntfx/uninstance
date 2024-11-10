@@ -14,6 +14,11 @@ terraform {
       source  = "opentofu/azurerm"
       version = "~> 4.0"
     }
+
+    google = {
+      source  = "opentofu/google"
+      version = "~> 6.4"
+    }
   }
 }
 
@@ -41,4 +46,12 @@ provider "azurerm" {
       prevent_deletion_if_contains_resources = false
     }
   }
+}
+
+provider "google" {
+  alias = "primary"
+
+  project = var.gcp_project_id
+  region  = var.gcp_region
+  zone    = var.gcp_zone
 }

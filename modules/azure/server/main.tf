@@ -161,11 +161,11 @@ resource "azurerm_linux_virtual_machine" "this" {
   resource_group_name   = azurerm_resource_group.this.name
   location              = azurerm_resource_group.this.location
   size                  = var.size
-  admin_username        = "pojntfx"
+  admin_username        = "azure-user"
   network_interface_ids = [azurerm_network_interface.this.id]
 
   admin_ssh_key {
-    username   = "pojntfx"
+    username   = "azure-user"
     public_key = var.public_key
   }
 

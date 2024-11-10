@@ -30,3 +30,14 @@ output "azure_servers" {
     }
   }
 }
+
+# GCP
+output "gcp_servers" {
+  value = {
+    for key, module_instance in module.gcp_servers : key => {
+      user         = "gcp-user"
+      ipv4_address = module_instance.ipv4_address
+      ipv6_address = module_instance.ipv6_address
+    }
+  }
+}

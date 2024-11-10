@@ -37,6 +37,24 @@ provider "registry.opentofu.org/opentofu/azurerm" {
   ]
 }
 
+provider "registry.opentofu.org/opentofu/google" {
+  version     = "6.10.0"
+  constraints = "~> 6.4"
+  hashes = [
+    "h1:pmFFQI1I551PlsmiJgTYNnZ+1G/tIv31KsFxw/VtyVU=",
+    "zh:07decf4962c46aa7be0c1c0ce70f56d989e64e1351b08746d18ee99e4335d0a1",
+    "zh:103701eda8558c3775bb4f5f302e86943052483d0a5357d5022fb4cc52c968c2",
+    "zh:3449c6bbcc8e30438c7b5925412c23b96e526beb236f688e481153791a360d3b",
+    "zh:58ab998485c537039416f3bf1192564b91779381834f90ca47375893ef807c57",
+    "zh:8d0dbc03566797f3e71db894f38c20d5c565c44c5f289512926dbdbd790723df",
+    "zh:cd0dc15ff68e57a693e7ccbf6a29e2bc38af784f8f8a4638e18b66f3408efc5a",
+    "zh:d17a98ba2faff4e5b47b818c5d0a7f47075c081f9acc2170d14d3134424dc8fa",
+    "zh:dfbbfe0012f503196efb970ee64741944e064908d2e6053a05e9bb2a03e8c27f",
+    "zh:fc0ebd19c5de0204e36670d2b8e9b4549d4992e21bdb4f37c14c038ce7ed9f89",
+    "zh:ff945f7ff2195e4628451f148ec5a31bec1fd29d84be237ead6c5b0fef62235a",
+  ]
+}
+
 provider "registry.opentofu.org/opentofu/hcloud" {
   version     = "1.49.0"
   constraints = "~> 1.0"

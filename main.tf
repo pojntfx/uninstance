@@ -72,3 +72,20 @@ module "azure_servers" {
   public_key      = each.value.public_key
   user_data       = each.value.user_data
 }
+
+# GCP
+module "gcp_servers" {
+  source = "./modules/gcp/server"
+  providers = {
+    google.primary = google.primary
+  }
+
+  for_each = local.gcp.servers
+
+  name         = each.value.name
+  image        = each.value.image
+  machine_type = each.value.machine_type
+  disk_size    = each.value.disk_size
+  public_key   = each.value.public_key
+  user_data    = each.value.user_data
+}
