@@ -12,12 +12,6 @@ variable "hetzner_api_key" {
 }
 
 # AWS
-variable "aws_region" {
-  description = "AWS Region"
-  type        = string
-  default     = "us-west-2"
-}
-
 variable "aws_access_key" {
   description = "AWS Access Key"
   type        = string

@@ -1,10 +1,12 @@
 # Hetzner
 output "hetzner_servers" {
   value = {
-    for key, module_instance in module.hetzner_servers : key => {
-      user         = "root"
-      ipv4_address = module_instance.ipv4_address
-      ipv6_address = module_instance.ipv6_address
+    for key, module_instances in local.hetzner_servers : key => {
+      for key, module_instance in module_instances : key => {
+        user         = module_instance.user
+        ipv4_address = module_instance.ipv4_address
+        ipv6_address = module_instance.ipv6_address
+      }
     }
   }
 }
@@ -12,10 +14,12 @@ output "hetzner_servers" {
 # AWS
 output "aws_servers" {
   value = {
-    for key, module_instance in module.aws_servers : key => {
-      user         = "ec2-user"
-      ipv4_address = module_instance.ipv4_address
-      ipv6_address = module_instance.ipv6_address
+    for key, module_instances in local.aws_servers : key => {
+      for key, module_instance in module_instances : key => {
+        user         = module_instance.user
+        ipv4_address = module_instance.ipv4_address
+        ipv6_address = module_instance.ipv6_address
+      }
     }
   }
 }
@@ -23,10 +27,12 @@ output "aws_servers" {
 # Azure
 output "azure_servers" {
   value = {
-    for key, module_instance in module.azure_servers : key => {
-      user         = module_instance.user
-      ipv4_address = module_instance.ipv4_address
-      ipv6_address = module_instance.ipv6_address
+    for key, module_instances in local.azure_servers : key => {
+      for key, module_instance in module_instances : key => {
+        user         = module_instance.user
+        ipv4_address = module_instance.ipv4_address
+        ipv6_address = module_instance.ipv6_address
+      }
     }
   }
 }
@@ -34,10 +40,12 @@ output "azure_servers" {
 # GCP
 output "gcp_servers" {
   value = {
-    for key, module_instance in module.gcp_servers : key => {
-      user         = "gcp-user"
-      ipv4_address = module_instance.ipv4_address
-      ipv6_address = module_instance.ipv6_address
+    for key, module_instances in local.gcp_servers : key => {
+      for key, module_instance in module_instances : key => {
+        user         = module_instance.user
+        ipv4_address = module_instance.ipv4_address
+        ipv6_address = module_instance.ipv6_address
+      }
     }
   }
 }
