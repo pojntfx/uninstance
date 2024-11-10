@@ -3,11 +3,7 @@ terraform {
     hcloud = {
       source  = "opentofu/hcloud"
       version = "~> 1.0"
+      configuration_aliases = [ hcloud.primary ]
     }
   }
-}
-
-provider "hcloud" {
-  token = var.hetzner_api_key
-  alias = "primary"
 }
