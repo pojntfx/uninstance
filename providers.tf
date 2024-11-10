@@ -8,6 +8,7 @@ terraform {
 }
 
 provider "hcloud" {
-  token = var.hetzner_api_key
   alias = "primary"
+
+  token = var.hetzner_api_key
 }

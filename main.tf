@@ -1,22 +1,14 @@
 # Hetzner
-module "hetzner_ssh" {
-  source = "./modules/hetzner/ssh"
+module "hetzner_ssh_key" {
+  source = "./modules/hetzner/ssh_key"
   providers = {
     hcloud.primary = hcloud.primary
   }
 
-  name       = "uninstance-ssh-public-key"
-  public_key = file("~/.ssh/id_rsa.pub")
+  name       = local.hetzner.ssh_key.name
+  public_key = local.hetzner.ssh_key.public_key
 }
 
-module "hetzner_network" {
-  source = "./modules/hetzner/network"
-  providers = {
-    hcloud.primary = hcloud.primary
-  }
-
-  name = "uninstance-firewall"
-}
 
 module "hetzner_servers" {
   source = "./modules/hetzner/server"
@@ -24,14 +16,12 @@ module "hetzner_servers" {
     hcloud.primary = hcloud.primary
   }
 
-  for_each = local.hetzner_servers
+  for_each = local.hetzner.servers
 
-  name        = each.value.name
-  image       = each.value.image
-  server_type = each.value.server_type
-  location    = each.value.location
-  user_data   = each.value.user_data
-
-  ssh_key_ids  = [module.hetzner_ssh.id]
-  firewall_ids = [module.hetzner_network.id]
+  name          = each.value.name
+  image         = each.value.image
+  server_type   = each.value.server_type
+  location      = each.value.location
+  public_key_id = module.hetzner_ssh_key.id
+  user_data     = each.value.user_data
 }
