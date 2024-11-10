@@ -11,16 +11,16 @@ locals {
         name        = "alma-hetzner-pvm-node-1-ash"
         image       = "alma-9"
         server_type = "ccx23" # AMD Milan or Genoa
-        user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
         location    = "hil"
+        user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
       }
 
       alma_hetzner_pvm_node_2_ash = {
         name        = "alma-hetzner-pvm-node-2-ash"
         image       = "alma-9"
         server_type = "ccx23" # AMD Milan or Genoa
-        user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
         location    = "ash"
+        user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
       }
     }
   }
@@ -47,6 +47,35 @@ locals {
         ami_name      = "AlmaLinux OS 9*x86_64*"
         instance_type = "c6a.xlarge" # AMD Milan
         user_data     = file("${path.module}/cloud-init-alma-aws.yaml")
+      }
+    }
+  }
+
+  # Azure
+  azure = {
+    servers = {
+      alma_azure_pvm_node_1_west_us = {
+        name            = "alma-azure-pvm-node-1-west-us"
+        image_publisher = "almalinux"
+        image_offer     = "almalinux-x86_64"
+        image_sku       = "9-gen2"
+        image_version   = "latest"
+        size            = "Standard_D4ads_v5" # AMD Milan
+        location        = "West US"
+        public_key      = file(var.ssh_public_key)
+        user_data       = file("${path.module}/cloud-init-alma-azure.yaml")
+      }
+
+      alma_azure_pvm_node_2_west_us = {
+        name            = "alma-azure-pvm-node-2-west-us"
+        image_publisher = "almalinux"
+        image_offer     = "almalinux-x86_64"
+        image_sku       = "9-gen2"
+        image_version   = "latest"
+        size            = "Standard_D4ads_v5" # AMD Milan
+        location        = "West US"
+        public_key      = file(var.ssh_public_key)
+        user_data       = file("${path.module}/cloud-init-alma-azure.yaml")
       }
     }
   }

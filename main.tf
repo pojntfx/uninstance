@@ -52,3 +52,23 @@ module "aws_servers" {
   public_key_name = module.aws_ssh_key.name
   user_data       = each.value.user_data
 }
+
+# Azure
+module "azure_servers" {
+  source = "./modules/azure/server"
+  providers = {
+    azurerm.primary = azurerm.primary
+  }
+
+  for_each = local.azure.servers
+
+  name            = each.value.name
+  image_publisher = each.value.image_publisher
+  image_offer     = each.value.image_offer
+  image_sku       = each.value.image_sku
+  image_version   = each.value.image_version
+  size            = each.value.size
+  location        = each.value.location
+  public_key      = each.value.public_key
+  user_data       = each.value.user_data
+}

@@ -32,3 +32,9 @@ variable "aws_token" {
   description = "AWS Session Token"
   type        = string
 }
+
+# Azure
+variable "azure_subscription_id" {
+  description = "Azure Subscription ID"
+  type        = string
+}

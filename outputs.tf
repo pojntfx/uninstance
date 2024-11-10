@@ -19,3 +19,14 @@ output "aws_servers" {
     }
   }
 }
+
+# Azure
+output "azure_servers" {
+  value = {
+    for key, module_instance in module.azure_servers : key => {
+      user         = module_instance.user
+      ipv4_address = module_instance.ipv4_address
+      ipv6_address = module_instance.ipv6_address
+    }
+  }
+}
