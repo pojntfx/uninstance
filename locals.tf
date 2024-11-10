@@ -88,15 +88,19 @@ locals {
         image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
         machine_type = "t2d-standard-4" # AMD Genoa
         disk_size    = 50
+        region       = "us-west1"
+        zone         = "us-west1-a"
         public_key   = file(var.ssh_public_key)
         user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
       }
 
-      alma_gcp_pvm_node_2_us-west1-a = {
-        name         = "alma-gcp-pvm-node-2-us-west1-a"
+      alma_gcp_pvm_node_2_us-east1-b = {
+        name         = "alma-gcp-pvm-node-2-us-east1-b"
         image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
         machine_type = "t2d-standard-4" # AMD Genoa
         disk_size    = 50
+        region       = "us-east1"
+        zone         = "us-east1-b"
         public_key   = file(var.ssh_public_key)
         user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
       }

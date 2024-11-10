@@ -1,15 +1,14 @@
 resource "azurerm_resource_group" "this" {
   provider = azurerm.primary
   name     = "${var.name}-resource-group"
-
   location = var.location
 }
 
 resource "azurerm_network_security_group" "this" {
   provider = azurerm.primary
   name     = "${var.name}-firewall"
+  location = azurerm_resource_group.this.location
 
-  location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
 
   security_rule {
@@ -66,9 +65,9 @@ resource "azurerm_network_security_group" "this" {
 resource "azurerm_virtual_network" "this" {
   provider = azurerm.primary
   name     = "${var.name}-vnet"
+  location = azurerm_resource_group.this.location
 
   address_space       = ["10.0.0.0/16", "fd00::/8"]
-  location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
 
   depends_on = [azurerm_resource_group.this]
@@ -104,8 +103,8 @@ resource "azurerm_subnet_network_security_group_association" "this" {
 resource "azurerm_public_ip" "ipv4_address" {
   provider = azurerm.primary
   name     = "${var.name}-ipv4-address"
+  location = azurerm_resource_group.this.location
 
-  location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   allocation_method   = "Static"
   sku                 = "Standard"
@@ -117,8 +116,8 @@ resource "azurerm_public_ip" "ipv4_address" {
 resource "azurerm_public_ip" "ipv6_address" {
   provider = azurerm.primary
   name     = "${var.name}-ipv6-address"
+  location = azurerm_resource_group.this.location
 
-  location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
   allocation_method   = "Static"
   sku                 = "Standard"
@@ -130,8 +129,8 @@ resource "azurerm_public_ip" "ipv6_address" {
 resource "azurerm_network_interface" "this" {
   provider = azurerm.primary
   name     = "${var.name}-nic"
+  location = azurerm_resource_group.this.location
 
-  location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
 
   ip_configuration {
@@ -157,9 +156,9 @@ resource "azurerm_network_interface" "this" {
 resource "azurerm_linux_virtual_machine" "this" {
   provider = azurerm.primary
   name     = var.name
+  location = azurerm_resource_group.this.location
 
   resource_group_name   = azurerm_resource_group.this.name
-  location              = azurerm_resource_group.this.location
   size                  = var.size
   admin_username        = "azure-user"
   network_interface_ids = [azurerm_network_interface.this.id]

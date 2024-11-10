@@ -86,6 +86,8 @@ module "gcp_servers" {
   image        = each.value.image
   machine_type = each.value.machine_type
   disk_size    = each.value.disk_size
+  region       = each.value.region
+  zone         = each.value.zone
   public_key   = each.value.public_key
   user_data    = each.value.user_data
 }

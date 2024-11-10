@@ -18,6 +18,16 @@ variable "disk_size" {
   type        = number
 }
 
+variable "region" {
+  description = "Region where the server will be created"
+  type        = string
+}
+
+variable "zone" {
+  description = "Zone where the server will be created"
+  type        = string
+}
+
 variable "public_key" {
   description = "SSH public key contents"
   type        = string

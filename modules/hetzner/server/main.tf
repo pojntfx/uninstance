@@ -20,10 +20,10 @@ resource "hcloud_firewall" "this" {
 resource "hcloud_server" "this" {
   provider = hcloud.primary
   name     = var.name
+  location = var.location
 
   image       = var.image
   server_type = var.server_type
-  location    = var.location
   user_data   = var.user_data
 
   ssh_keys     = [var.public_key_id]

@@ -8,6 +8,7 @@ resource "google_compute_network" "this" {
 resource "google_compute_subnetwork" "this" {
   provider = google.primary
   name     = "${var.name}-subnetwork"
+  region   = var.region
 
   network          = google_compute_network.this.self_link
   ip_cidr_range    = "10.2.0.0/24"
@@ -90,6 +91,7 @@ resource "google_compute_firewall" "this_allow_all_udp_ipv6" {
 resource "google_compute_address" "ipv4_address" {
   provider = google.primary
   name     = "${var.name}-ipv4-address"
+  region   = var.region
 
   address_type = "EXTERNAL"
   ip_version   = "IPV4"
@@ -98,6 +100,7 @@ resource "google_compute_address" "ipv4_address" {
 resource "google_compute_address" "ipv6_address" {
   provider = google.primary
   name     = "${var.name}-ipv6-address"
+  region   = var.region
 
   address_type       = "EXTERNAL"
   ip_version         = "IPV6"
@@ -114,6 +117,7 @@ resource "google_service_account" "this" {
 resource "google_compute_instance" "this" {
   provider = google.primary
   name     = var.name
+  zone     = var.zone
 
   machine_type              = var.machine_type
   allow_stopping_for_update = true
