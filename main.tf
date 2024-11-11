@@ -23,18 +23,50 @@ module "hetzner_servers" {
 
   for_each = {
     alma_hetzner_pvm_node_1_hil = {
-      name        = "alma-hetzner-pvm-node-1-ash"
+      name        = "alma-hetzner-pvm-node-1-hil"
       image       = "alma-9"
       server_type = "ccx23" # AMD Milan or Genoa
       location    = "hil"
       user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
     }
 
-    alma_hetzner_pvm_node_2_ash = {
-      name        = "alma-hetzner-pvm-node-2-ash"
+    alma_hetzner_pvm_node_2_hil = {
+      name        = "alma-hetzner-pvm-node-2-hil"
       image       = "alma-9"
       server_type = "ccx23" # AMD Milan or Genoa
-      location    = "ash"
+      location    = "hil"
+      user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
+    }
+
+    alma_hetzner_pvm_node_3_hil = {
+      name        = "alma-hetzner-pvm-node-3-hil"
+      image       = "alma-9"
+      server_type = "ccx23" # AMD Milan or Genoa
+      location    = "hil"
+      user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
+    }
+
+    alma_hetzner_pvm_node_4_sin = {
+      name        = "alma-hetzner-pvm-node-4-sin"
+      image       = "alma-9"
+      server_type = "ccx23" # AMD Milan or Genoa
+      location    = "sin"
+      user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
+    }
+
+    alma_hetzner_pvm_node_5_sin = {
+      name        = "alma-hetzner-pvm-node-5-sin"
+      image       = "alma-9"
+      server_type = "ccx23" # AMD Milan or Genoa
+      location    = "sin"
+      user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
+    }
+
+    alma_hetzner_pvm_node_6_sin = {
+      name        = "alma-hetzner-pvm-node-6-sin"
+      image       = "alma-9"
+      server_type = "ccx23" # AMD Milan or Genoa
+      location    = "sin"
       user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
     }
   }
@@ -106,6 +138,22 @@ module "aws_servers_us_west_2" {
       instance_type = "c6a.xlarge" # AMD Milan
       user_data     = file("${path.module}/cloud-init-alma-aws.yaml")
     }
+
+    alma_aws_pvm_node_2_us_west_2 = {
+      name          = "alma-aws-pvm-node-2-us-west-2"
+      ami_owner     = "679593333241"
+      ami_name      = "AlmaLinux OS 9*x86_64*"
+      instance_type = "c6a.xlarge" # AMD Milan
+      user_data     = file("${path.module}/cloud-init-alma-aws.yaml")
+    }
+
+    alma_aws_pvm_node_3_us_west_2 = {
+      name          = "alma-aws-pvm-node-3-us-west-2"
+      ami_owner     = "679593333241"
+      ami_name      = "AlmaLinux OS 9*x86_64*"
+      instance_type = "c6a.xlarge" # AMD Milan
+      user_data     = file("${path.module}/cloud-init-alma-aws.yaml")
+    }
   }
 
   name            = each.value.name
@@ -125,6 +173,22 @@ module "aws_servers_us_east_2" {
   for_each = {
     alma_aws_pvm_node_1_us_east_2 = {
       name          = "alma-aws-pvm-node-1-us-east-2"
+      ami_owner     = "679593333241"
+      ami_name      = "AlmaLinux OS 9*x86_64*"
+      instance_type = "c6a.xlarge" # AMD Milan
+      user_data     = file("${path.module}/cloud-init-alma-aws.yaml")
+    }
+
+    alma_aws_pvm_node_2_us_east_2 = {
+      name          = "alma-aws-pvm-node-2-us-east-2"
+      ami_owner     = "679593333241"
+      ami_name      = "AlmaLinux OS 9*x86_64*"
+      instance_type = "c6a.xlarge" # AMD Milan
+      user_data     = file("${path.module}/cloud-init-alma-aws.yaml")
+    }
+
+    alma_aws_pvm_node_3_us_east_2 = {
+      name          = "alma-aws-pvm-node-3-us-east-2"
       ami_owner     = "679593333241"
       ami_name      = "AlmaLinux OS 9*x86_64*"
       instance_type = "c6a.xlarge" # AMD Milan
@@ -189,6 +253,54 @@ module "azure_servers" {
       public_key      = file(var.ssh_public_key)
       user_data       = file("${path.module}/cloud-init-alma-azure.yaml")
     }
+
+    alma_azure_pvm_node_3_west_us = {
+      name            = "alma-azure-pvm-node-3-west-us"
+      image_publisher = "almalinux"
+      image_offer     = "almalinux-x86_64"
+      image_sku       = "9-gen2"
+      image_version   = "latest"
+      size            = "Standard_D4ads_v5" # AMD Milan
+      location        = "West US"
+      public_key      = file(var.ssh_public_key)
+      user_data       = file("${path.module}/cloud-init-alma-azure.yaml")
+    }
+
+    alma_azure_pvm_node_1_central_us = {
+      name            = "alma-azure-pvm-node-1-central-us"
+      image_publisher = "almalinux"
+      image_offer     = "almalinux-x86_64"
+      image_sku       = "9-gen2"
+      image_version   = "latest"
+      size            = "Standard_D4ads_v5" # AMD Milan
+      location        = "Central US"
+      public_key      = file(var.ssh_public_key)
+      user_data       = file("${path.module}/cloud-init-alma-azure.yaml")
+    }
+
+    alma_azure_pvm_node_2_central_us = {
+      name            = "alma-azure-pvm-node-2-central-us"
+      image_publisher = "almalinux"
+      image_offer     = "almalinux-x86_64"
+      image_sku       = "9-gen2"
+      image_version   = "latest"
+      size            = "Standard_D4ads_v5" # AMD Milan
+      location        = "Central US"
+      public_key      = file(var.ssh_public_key)
+      user_data       = file("${path.module}/cloud-init-alma-azure.yaml")
+    }
+
+    alma_azure_pvm_node_3_central_us = {
+      name            = "alma-azure-pvm-node-3-central-us"
+      image_publisher = "almalinux"
+      image_offer     = "almalinux-x86_64"
+      image_sku       = "9-gen2"
+      image_version   = "latest"
+      size            = "Standard_D4ads_v5" # AMD Milan
+      location        = "Central US"
+      public_key      = file(var.ssh_public_key)
+      user_data       = file("${path.module}/cloud-init-alma-azure.yaml")
+    }
   }
 
   name            = each.value.name
@@ -234,13 +346,57 @@ module "gcp_servers" {
       user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
     }
 
-    alma_gcp_pvm_node_2_us_east1_b = {
-      name         = "alma-gcp-pvm-node-2-us-east1-b"
+    alma_gcp_pvm_node_2_us_west1_a = {
+      name         = "alma-gcp-pvm-node-2-us-west1-a"
       image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
       machine_type = "t2d-standard-4" # AMD Genoa
       disk_size    = 50
-      region       = "us-east1"
-      zone         = "us-east1-b"
+      region       = "us-west1"
+      zone         = "us-west1-a"
+      public_key   = file(var.ssh_public_key)
+      user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
+    }
+
+    alma_gcp_pvm_node_3_us_east4_b = {
+      name         = "alma-gcp-pvm-node-3-us-east4-b"
+      image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
+      machine_type = "t2d-standard-4" # AMD Genoa
+      disk_size    = 50
+      region       = "us-east4"
+      zone         = "us-east4-b"
+      public_key   = file(var.ssh_public_key)
+      user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
+    }
+
+    alma_gcp_pvm_node_4_us_east4_b = {
+      name         = "alma-gcp-pvm-node-4-us-east4-b"
+      image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
+      machine_type = "t2d-standard-4" # AMD Genoa
+      disk_size    = 50
+      region       = "us-east4"
+      zone         = "us-east4-b"
+      public_key   = file(var.ssh_public_key)
+      user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
+    }
+
+    alma_gcp_pvm_node_5_us_ctl1_b = {
+      name         = "alma-gcp-pvm-node-5-us-ctl1-b"
+      image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
+      machine_type = "t2d-standard-4" # AMD Genoa
+      disk_size    = 50
+      region       = "us-central1"
+      zone         = "us-central1-b"
+      public_key   = file(var.ssh_public_key)
+      user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
+    }
+
+    alma_gcp_pvm_node_6_us_ctl1_b = {
+      name         = "alma-gcp-pvm-node-6-us-ctl1-b"
+      image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
+      machine_type = "t2d-standard-4" # AMD Genoa
+      disk_size    = 50
+      region       = "us-central1"
+      zone         = "us-central1-b"
       public_key   = file(var.ssh_public_key)
       user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
     }
