@@ -1,5 +1,6 @@
 #cloud-config
 runcmd:
+  - dnf update -y
   - dnf config-manager --add-repo 'https://loopholelabs.github.io/linux-pvm-ci/alma/aws/repodata/linux-pvm-ci.repo'
   - dnf install -y kernel-6.7.12_pvm_host_alma_aws-1.x86_64
   - grubby --set-default /boot/vmlinuz-6.7.12-pvm-host-alma-aws
