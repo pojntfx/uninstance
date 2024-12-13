@@ -95,6 +95,7 @@ resource "aws_instance" "this" {
   ami                         = data.aws_ami.alma.id
   instance_type               = var.instance_type
   subnet_id                   = aws_subnet.this.id
+  private_ip                  = "10.0.1.42"
   associate_public_ip_address = true
   ipv6_address_count          = 1
 
