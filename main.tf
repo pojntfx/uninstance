@@ -45,30 +45,6 @@ module "hetzner_servers" {
       location    = "hil"
       user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
     }
-
-    alma_hetzner_4_sin = {
-      name        = "${var.prefix}-alma-hetzner-4-sin"
-      image       = "alma-9"
-      server_type = "ccx23" # AMD Milan or Genoa
-      location    = "sin"
-      user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
-    }
-
-    alma_hetzner_5_sin = {
-      name        = "${var.prefix}-alma-hetzner-5-sin"
-      image       = "alma-9"
-      server_type = "ccx23" # AMD Milan or Genoa
-      location    = "sin"
-      user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
-    }
-
-    alma_hetzner_6_sin = {
-      name        = "${var.prefix}-alma-hetzner-6-sin"
-      image       = "alma-9"
-      server_type = "ccx23" # AMD Milan or Genoa
-      location    = "sin"
-      user_data   = file("${path.module}/cloud-init-alma-hetzner.yaml")
-    }
   }
 
   name          = each.value.name
@@ -108,16 +84,6 @@ module "aws_ssh_key_us_west_2" {
   source = "./modules/aws/ssh_key"
   providers = {
     aws.primary = aws.us_west_2
-  }
-
-  name       = "${var.prefix}-uninstance"
-  public_key = file(var.ssh_public_key)
-}
-
-module "aws_ssh_key_us_east_2" {
-  source = "./modules/aws/ssh_key"
-  providers = {
-    aws.primary = aws.us_east_2
   }
 
   name       = "${var.prefix}-uninstance"
@@ -164,50 +130,9 @@ module "aws_servers_us_west_2" {
   user_data       = each.value.user_data
 }
 
-module "aws_servers_us_east_2" {
-  source = "./modules/aws/server"
-  providers = {
-    aws.primary = aws.us_east_2
-  }
-
-  for_each = {
-    alma_aws_1_us_east_2 = {
-      name          = "${var.prefix}-alma-aws-1-us-east-2"
-      ami_owner     = "679593333241"
-      ami_name      = "AlmaLinux OS 9*x86_64*"
-      instance_type = "c6a.xlarge" # AMD Milan
-      user_data     = file("${path.module}/cloud-init-alma-aws.yaml")
-    }
-
-    alma_aws_2_us_east_2 = {
-      name          = "${var.prefix}-alma-aws-2-us-east-2"
-      ami_owner     = "679593333241"
-      ami_name      = "AlmaLinux OS 9*x86_64*"
-      instance_type = "c6a.xlarge" # AMD Milan
-      user_data     = file("${path.module}/cloud-init-alma-aws.yaml")
-    }
-
-    alma_aws_3_us_east_2 = {
-      name          = "${var.prefix}-alma-aws-3-us-east-2"
-      ami_owner     = "679593333241"
-      ami_name      = "AlmaLinux OS 9*x86_64*"
-      instance_type = "c6a.xlarge" # AMD Milan
-      user_data     = file("${path.module}/cloud-init-alma-aws.yaml")
-    }
-  }
-
-  name            = each.value.name
-  ami_owner       = each.value.ami_owner
-  ami_name        = each.value.ami_name
-  instance_type   = each.value.instance_type
-  public_key_name = module.aws_ssh_key_us_east_2.name
-  user_data       = each.value.user_data
-}
-
 locals {
   aws_servers = {
     us_west_2 = module.aws_servers_us_west_2
-    us_east_2 = module.aws_servers_us_east_2
   }
 }
 
@@ -262,42 +187,6 @@ module "azure_servers" {
       image_version   = "latest"
       size            = "Standard_D4ads_v5" # AMD Milan
       location        = "West US"
-      public_key      = file(var.ssh_public_key)
-      user_data       = file("${path.module}/cloud-init-alma-azure.yaml")
-    }
-
-    alma_azure_1_central_us = {
-      name            = "${var.prefix}-alma-azure-1-central-us"
-      image_publisher = "almalinux"
-      image_offer     = "almalinux-x86_64"
-      image_sku       = "9-gen2"
-      image_version   = "latest"
-      size            = "Standard_D4ads_v5" # AMD Milan
-      location        = "Central US"
-      public_key      = file(var.ssh_public_key)
-      user_data       = file("${path.module}/cloud-init-alma-azure.yaml")
-    }
-
-    alma_azure_2_central_us = {
-      name            = "${var.prefix}-alma-azure-2-central-us"
-      image_publisher = "almalinux"
-      image_offer     = "almalinux-x86_64"
-      image_sku       = "9-gen2"
-      image_version   = "latest"
-      size            = "Standard_D4ads_v5" # AMD Milan
-      location        = "Central US"
-      public_key      = file(var.ssh_public_key)
-      user_data       = file("${path.module}/cloud-init-alma-azure.yaml")
-    }
-
-    alma_azure_3_central_us = {
-      name            = "${var.prefix}-alma-azure-3-central-us"
-      image_publisher = "almalinux"
-      image_offer     = "almalinux-x86_64"
-      image_sku       = "9-gen2"
-      image_version   = "latest"
-      size            = "Standard_D4ads_v5" # AMD Milan
-      location        = "Central US"
       public_key      = file(var.ssh_public_key)
       user_data       = file("${path.module}/cloud-init-alma-azure.yaml")
     }
@@ -356,46 +245,13 @@ module "gcp_servers" {
       user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
     }
 
-    alma_gcp_3_us_east4_b = {
-      name         = "${var.prefix}-alma-gcp-3-us-east4-b"
+    alma_gcp_3_us_west1_a = {
+      name         = "${var.prefix}-alma-gcp-3-us-west1-a"
       image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
       machine_type = "t2d-standard-4" # AMD Genoa
       disk_size    = 50
-      region       = "us-east4"
-      zone         = "us-east4-b"
-      public_key   = file(var.ssh_public_key)
-      user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
-    }
-
-    alma_gcp_4_us_east4_b = {
-      name         = "${var.prefix}-alma-gcp-4-us-east4-b"
-      image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
-      machine_type = "t2d-standard-4" # AMD Genoa
-      disk_size    = 50
-      region       = "us-east4"
-      zone         = "us-east4-b"
-      public_key   = file(var.ssh_public_key)
-      user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
-    }
-
-    alma_gcp_5_us_ctl1_b = {
-      name         = "${var.prefix}-alma-gcp-5-us-ctl1-b"
-      image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
-      machine_type = "t2d-standard-4" # AMD Genoa
-      disk_size    = 50
-      region       = "us-central1"
-      zone         = "us-central1-b"
-      public_key   = file(var.ssh_public_key)
-      user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
-    }
-
-    alma_gcp_6_us_ctl1_b = {
-      name         = "${var.prefix}-alma-gcp-6-us-ctl1-b"
-      image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
-      machine_type = "t2d-standard-4" # AMD Genoa
-      disk_size    = 50
-      region       = "us-central1"
-      zone         = "us-central1-b"
+      region       = "us-west1"
+      zone         = "us-west1-a"
       public_key   = file(var.ssh_public_key)
       user_data    = file("${path.module}/cloud-init-alma-gcp.yaml")
     }
