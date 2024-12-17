@@ -38,3 +38,10 @@ variable "gcp_project_id" {
   description = "GCP Project ID"
   type        = string
 }
+
+# Prefix
+variable "prefix" {
+  description = "Prefix to be added to the name of every resource"
+  type        = string
+  default     = "pojntfx"
+}
