@@ -19,5 +19,10 @@ terraform {
       source  = "opentofu/google"
       version = "~> 6.4"
     }
+
+    random = {
+      source = "opentofu/random"
+      version = "3.6.3"
+    }
   }
 }

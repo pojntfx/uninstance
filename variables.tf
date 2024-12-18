@@ -1,3 +1,10 @@
+# Prefix
+variable "prefix" {
+  description = "Prefix to be added to the name of every resource (if empty, a random pet name will be used)"
+  type        = string
+  default     = ""
+}
+
 # SSH
 variable "ssh_public_key" {
   description = "SSH Public Key Location"
@@ -37,11 +44,4 @@ variable "azure_subscription_id" {
 variable "gcp_project_id" {
   description = "GCP Project ID"
   type        = string
-}
-
-# Prefix
-variable "prefix" {
-  description = "Prefix to be added to the name of every resource"
-  type        = string
-  default     = "pojntfx"
 }

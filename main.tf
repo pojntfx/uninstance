@@ -1,3 +1,12 @@
+# Prefix
+resource "random_pet" "prefix" {
+  length = 7
+}
+
+locals {
+  prefix = coalesce(var.prefix, random_pet.prefix.id)
+}
+
 # Hetzner
 provider "hcloud" {
   alias = "global"
@@ -11,7 +20,7 @@ module "hetzner_ssh_key" {
     hcloud.primary = hcloud.global
   }
 
-  name       = "${var.prefix}-uninstance"
+  name       = "${local.prefix}-uninstance"
   public_key = file(var.ssh_public_key)
 }
 
@@ -23,7 +32,7 @@ module "hetzner_servers" {
 
   for_each = {
     alma_hetzner_1_hil = {
-      name        = "${var.prefix}-alma-hetzner-1-hil"
+      name        = "${local.prefix}-alma-hetzner-1-hil"
       image       = "alma-9"
       server_type = "ccx23" # AMD Milan or Genoa
       location    = "hil"
@@ -31,7 +40,7 @@ module "hetzner_servers" {
     }
 
     alma_hetzner_2_hil = {
-      name        = "${var.prefix}-alma-hetzner-2-hil"
+      name        = "${local.prefix}-alma-hetzner-2-hil"
       image       = "alma-9"
       server_type = "ccx23" # AMD Milan or Genoa
       location    = "hil"
@@ -39,7 +48,7 @@ module "hetzner_servers" {
     }
 
     alma_hetzner_3_hil = {
-      name        = "${var.prefix}-alma-hetzner-3-hil"
+      name        = "${local.prefix}-alma-hetzner-3-hil"
       image       = "alma-9"
       server_type = "ccx23" # AMD Milan or Genoa
       location    = "hil"
@@ -86,7 +95,7 @@ module "aws_ssh_key_us_west_2" {
     aws.primary = aws.us_west_2
   }
 
-  name       = "${var.prefix}-uninstance"
+  name       = "${local.prefix}-uninstance"
   public_key = file(var.ssh_public_key)
 }
 
@@ -98,7 +107,7 @@ module "aws_servers_us_west_2" {
 
   for_each = {
     alma_aws_1_us_west_2 = {
-      name          = "${var.prefix}-alma-aws-1-us-west-2"
+      name          = "${local.prefix}-alma-aws-1-us-west-2"
       ami_owner     = "679593333241"
       ami_name      = "AlmaLinux OS 9*x86_64*"
       instance_type = "c6a.xlarge" # AMD Milan
@@ -106,7 +115,7 @@ module "aws_servers_us_west_2" {
     }
 
     alma_aws_2_us_west_2 = {
-      name          = "${var.prefix}-alma-aws-2-us-west-2"
+      name          = "${local.prefix}-alma-aws-2-us-west-2"
       ami_owner     = "679593333241"
       ami_name      = "AlmaLinux OS 9*x86_64*"
       instance_type = "c6a.xlarge" # AMD Milan
@@ -114,7 +123,7 @@ module "aws_servers_us_west_2" {
     }
 
     alma_aws_3_us_west_2 = {
-      name          = "${var.prefix}-alma-aws-3-us-west-2"
+      name          = "${local.prefix}-alma-aws-3-us-west-2"
       ami_owner     = "679593333241"
       ami_name      = "AlmaLinux OS 9*x86_64*"
       instance_type = "c6a.xlarge" # AMD Milan
@@ -156,7 +165,7 @@ module "azure_servers" {
 
   for_each = {
     alma_azure_1_west_us = {
-      name            = "${var.prefix}-alma-azure-1-west-us"
+      name            = "${local.prefix}-alma-azure-1-west-us"
       image_publisher = "almalinux"
       image_offer     = "almalinux-x86_64"
       image_sku       = "9-gen2"
@@ -168,7 +177,7 @@ module "azure_servers" {
     }
 
     alma_azure_2_west_us = {
-      name            = "${var.prefix}-alma-azure-2-west-us"
+      name            = "${local.prefix}-alma-azure-2-west-us"
       image_publisher = "almalinux"
       image_offer     = "almalinux-x86_64"
       image_sku       = "9-gen2"
@@ -180,7 +189,7 @@ module "azure_servers" {
     }
 
     alma_azure_3_west_us = {
-      name            = "${var.prefix}-alma-azure-3-west-us"
+      name            = "${local.prefix}-alma-azure-3-west-us"
       image_publisher = "almalinux"
       image_offer     = "almalinux-x86_64"
       image_sku       = "9-gen2"
@@ -224,7 +233,7 @@ module "gcp_servers" {
 
   for_each = {
     alma_gcp_1_us_west1_a = {
-      name         = "${var.prefix}-alma-gcp-1-us-west1-a"
+      name         = "${local.prefix}-alma-gcp-1-us-west1-a"
       image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
       machine_type = "t2d-standard-4" # AMD Genoa
       disk_size    = 50
@@ -235,7 +244,7 @@ module "gcp_servers" {
     }
 
     alma_gcp_2_us_west1_a = {
-      name         = "${var.prefix}-alma-gcp-2-us-west1-a"
+      name         = "${local.prefix}-alma-gcp-2-us-west1-a"
       image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
       machine_type = "t2d-standard-4" # AMD Genoa
       disk_size    = 50
@@ -246,7 +255,7 @@ module "gcp_servers" {
     }
 
     alma_gcp_3_us_west1_a = {
-      name         = "${var.prefix}-alma-gcp-3-us-west1-a"
+      name         = "${local.prefix}-alma-gcp-3-us-west1-a"
       image        = "projects/almalinux-cloud/global/images/almalinux-9-v20221206"
       machine_type = "t2d-standard-4" # AMD Genoa
       disk_size    = 50
